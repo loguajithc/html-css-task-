@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .main {
+            background-color:green;
+            width:40%;
+            height:300px;
+            margin: 300px auto;
+            text-align:center;
+        }
+        h2{
+            color:rgb(15);
+            font-size:25px;
+            padding: 10px;
+            margin-bottom:10px;
+        }
+        .sub-a{
+            display:flex;
+            justify-content:space-evenly;
+            align-items:center;
+        }
+        input {
+            width: 50%;
+            height:40px;
+            font-size:20px;
+            border-radius:50px;
+        }
+        .b1{
+            background-color: rgb(15, 154, 241);
+            color: blue;
+            border:none;
+            border-radius: 15px;
+            width:100px;
+            height: 30px;
+            cursor:pointer;
+        }
+        .task {
+            padding: 50px;
+        }
+
+        .but{
+            background-color: rgb(218, 43, 43);
+            color: white;
+            border-radius: 5px;
+            width: 70px;
+            height:30px;
+            cursor:pointer;
+            border: none;
+        }
+        .p1{
+            text-decoration: line-through;
+            color: darkgray;
+        }
+        hr{
+            border-style: dashed;
+            width: 85%;
+        }
+        i {
+            color:green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main">
+        <h2>Task Manager</h2>
+
+        <div class="sub-a">
+            <input type="text" id="in" placeholder="What needs to be done?" />
+            <button class="b1" id="b1" onclick="fun()">Add Task</button>
+        </div>
+
+        <div class="task">
+            <table width="100%" cellpadding="10">
+                <tbody id="b">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const input=document.getElementById("in");
+        const tableBody=document.getElementById("b");
+
+        function fun(){
+            const taskName= input.value;
+
+            if(taskName=== "") {
+                console.log("Please enter the task name");
+                return;
+            }
+            const row = document.createElement("tr");
+            row.innerHTML=`
+                <td><a class="fa-solid fa-check"></a></td>
+                <td>${taskName}</td>
+                <td><button class="but">Remove</button></td>`;
+            tableBody.appendChild(row);
+            input.value = "";
+            const removeBtn = row.querySelector(".but");
+            removeBtn.addEventListener("click", function(){
+                const taskText=this.parentElement.previousElementSibling;
+                const confirmDelete= confirm("are you want to remove?");
+                if (confirmDelete){
+                    taskText.style.textDecoration ="line-through";
+                    taskText.style.color="darkgray";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
